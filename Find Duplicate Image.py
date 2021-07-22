@@ -5,7 +5,8 @@ from PIL import Image, ImageStat
 from fnmatch import fnmatch
 import copy
 import time
-
+import hashlib
+from tkinter import Tk, filedialog
 #query out the database for known user_id
 def Query():
 	mydb = mysql.connector.connect(
@@ -33,10 +34,22 @@ def	CreateFolderOut(imagePath):
 		os.makedirs(nFolPath)
 	return nFolPath
 
-def ResultExist():
-	return os.path.exists(nFolPath)
+def hash(file):
+    with open(file, "rb") as f:
+        file_hash = hashlib.md5()
+        chuck = f.read(8192)
+        while chuck:
+            file_hash.update(chuck)
+            chuck = f.read(8192)
+    return (file_hash.hexdigest())
 
+root = Tk()
+root.withdraw()
+root.attributes('-topmost', True)
+open_file = filedialog.askdirectory()
+print ('Image Directory:',open_file)
 firstpath = r"C:\Users\patchnui\Downloads\Python_Test\Upload"
+firstpath = open_file
 imgoutpath = r"C:\Users\patchnui\Downloads\Python_Test\\"
 pattern = "*.py"
 opFolName = 'Image_Duplicate'
@@ -52,23 +65,28 @@ def main():
         if i in foundimg:
             print ("Found Previous Image:", i)
             continue
-        image_org = Image.open(finalpath)
-        pix_mean1 = ImageStat.Stat(image_org).mean
+
+        # image_org = Image.open(finalpath)
+        # pix_mean1 = ImageStat.Stat(image_org).mean
+        pix_mean1 = hash(finalpath)
         for j in arraypath:
             j = str(j)
             if j != i:
-                image_org2 = Image.open(j)
-                pix_mean2 = ImageStat.Stat(image_org2).mean
+                # image_org2 = Image.open(j)
+                # pix_mean2 = ImageStat.Stat(image_org2).mean
+                pix_mean2 = hash(j)
                 if pix_mean1 == pix_mean2:
                     foundimg.append(j)
                     print ('Found Duplicated Image:',len(foundimg))
-                    print ('File:', finalpath, j)
+                    print ('File:', finalpath,'and', j)
                     if c == 0:
                         nFolPath = CreateFolderOut(imgoutpath)
                         c = c + 1
                     shutil.copy(finalpath, nFolPath)
                     shutil.copy(j, nFolPath)
     print ('Program Completed')
+    print ('Total Images Lookup:', len(arraypath))
+    print ('Found Duplicated Image:', len(foundimg))
 
         # for file in os.listdir(finalpath):
         #     folName = os.fsdecode(file)
@@ -111,4 +129,4 @@ if __name__ == "__main__":
     end = time.time()
     hours, rem = divmod(end - start, 3600)
     minutes, seconds = divmod(rem, 60)
-    print("{:0>2}:{:0>2}:{:05.2f}".format(int(hours), int(minutes), seconds))
+    print("Elapsed Time: "+"{:0>2}:{:0>2}:{:05.2f}".format(int(hours), int(minutes), seconds))
