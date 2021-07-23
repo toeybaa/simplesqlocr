@@ -6,7 +6,9 @@ from fnmatch import fnmatch
 import copy
 import time
 import hashlib
+import imagehash
 from tkinter import Tk, filedialog
+import numpy as np
 #query out the database for known user_id
 def Query():
 	mydb = mysql.connector.connect(
@@ -43,6 +45,11 @@ def hash(file):
             chuck = f.read(8192)
     return (file_hash.hexdigest())
 
+def averagehash(file):
+    with Image.open(file) as img:
+        temp_hash = imagehash.average_hash(img, 8)
+    return temp_hash
+
 root = Tk()
 root.withdraw()
 root.attributes('-topmost', True)
@@ -51,9 +58,11 @@ print ('Image Directory:',open_file)
 firstpath = r"C:\Users\patchnui\Downloads\Python_Test\Upload"
 firstpath = open_file
 imgoutpath = r"C:\Users\patchnui\Downloads\Python_Test\\"
+imgoutpath = filedialog.askdirectory()
 pattern = "*.py"
 opFolName = 'Image_Duplicate'
 nFolPath = os.path.join(imgoutpath, opFolName)
+print ('Result Directory:',nFolPath)
 arraypath = copy.main(firstpath)
 foundimg = []
 
@@ -68,13 +77,13 @@ def main():
 
         # image_org = Image.open(finalpath)
         # pix_mean1 = ImageStat.Stat(image_org).mean
-        pix_mean1 = hash(finalpath)
+        pix_mean1 = averagehash(finalpath)
         for j in arraypath:
             j = str(j)
             if j != i:
                 # image_org2 = Image.open(j)
                 # pix_mean2 = ImageStat.Stat(image_org2).mean
-                pix_mean2 = hash(j)
+                pix_mean2 = averagehash(j)
                 if pix_mean1 == pix_mean2:
                     foundimg.append(j)
                     print ('Found Duplicated Image:',len(foundimg))
