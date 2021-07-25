@@ -53,17 +53,8 @@ def averagehash(file):
 root = Tk()
 root.withdraw()
 root.attributes('-topmost', True)
-open_file = filedialog.askdirectory()
-print ('Image Directory:',open_file)
-firstpath = r"C:\Users\patchnui\Downloads\Python_Test\Upload"
-firstpath = open_file
-imgoutpath = r"C:\Users\patchnui\Downloads\Python_Test\\"
-imgoutpath = filedialog.askdirectory()
-pattern = "*.py"
-opFolName = 'Image_Duplicate'
-nFolPath = os.path.join(imgoutpath, opFolName)
-print ('Result Directory:',nFolPath)
-arraypath = copy.main(firstpath)
+
+arraypath = copy.main()
 foundimg = []
 
 def main():
@@ -77,13 +68,13 @@ def main():
 
         # image_org = Image.open(finalpath)
         # pix_mean1 = ImageStat.Stat(image_org).mean
-        pix_mean1 = averagehash(finalpath)
+        pix_mean1 = hash(finalpath)
         for j in arraypath:
             j = str(j)
             if j != i:
                 # image_org2 = Image.open(j)
                 # pix_mean2 = ImageStat.Stat(image_org2).mean
-                pix_mean2 = averagehash(j)
+                pix_mean2 = hash(j)
                 if pix_mean1 == pix_mean2:
                     foundimg.append(j)
                     print ('Found Duplicated Image:',len(foundimg))
