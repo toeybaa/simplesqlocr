@@ -3,7 +3,6 @@ import shutil
 import mysql.connector
 from PIL import Image, ImageStat
 from fnmatch import fnmatch
-import copy
 import time
 import hashlib
 import imagehash
@@ -50,19 +49,29 @@ def averagehash(file):
         temp_hash = imagehash.average_hash(img, 8)
     return temp_hash
 
+
+def getfilearray(path):
+    arraypath = []
+    for file in os.listdir(path):
+        arraypath.append(file)
+    return arraypath
+
 root = Tk()
 root.withdraw()
 root.attributes('-topmost', True)
-
-arraypath = copy.main()
+firstpath = filedialog.askdirectory()
 foundimg = []
+imgoutpath = firstpath
+opFolName = 'Image_Duplicate'
+nFolPath = os.path.join(imgoutpath, opFolName)
 
 def main():
     c = 0
+    arraypath = getfilearray(firstpath)
     for i in arraypath:
-        finalpath = str(i)
+        finalpath = os.path.join(firstpath,i)
         print ('Current Looking Image:', i)
-        if i in foundimg:
+        if finalpath in foundimg:
             print ("Found Previous Image:", i)
             continue
 
@@ -70,8 +79,8 @@ def main():
         # pix_mean1 = ImageStat.Stat(image_org).mean
         pix_mean1 = hash(finalpath)
         for j in arraypath:
-            j = str(j)
-            if j != i:
+            j = os.path.join(firstpath, j)
+            if j != finalpath:
                 # image_org2 = Image.open(j)
                 # pix_mean2 = ImageStat.Stat(image_org2).mean
                 pix_mean2 = hash(j)
@@ -84,9 +93,9 @@ def main():
                         c = c + 1
                     shutil.copy(finalpath, nFolPath)
                     shutil.copy(j, nFolPath)
-    print ('Program Completed')
     print ('Total Images Lookup:', len(arraypath))
     print ('Found Duplicated Image:', len(foundimg))
+    print ('Program Completed')
 
         # for file in os.listdir(finalpath):
         #     folName = os.fsdecode(file)
