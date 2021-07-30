@@ -68,6 +68,7 @@ def getabspath(path):
     #     dir = list(dict.fromkeys(dir))
     #
     # return (dir)
+def pathiteration():
 
 def main():
     dir = getabspath(os.getcwd())
