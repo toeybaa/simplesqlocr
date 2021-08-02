@@ -1,11 +1,11 @@
 import os
 import shutil
-import mysql.connector
+# import mysql.connector
 from PIL import Image, ImageStat
 from fnmatch import fnmatch
 import time
 import hashlib
-import imagehash
+# import imagehash
 from tkinter import Tk, filedialog
 import numpy as np
 #query out the database for known user_id
@@ -27,13 +27,15 @@ def	CreateFolderOut(imagePath):
 	opFolName = 'Image_Duplicate'
 	nFolPath = os.path.join(imgoutpath, opFolName)
 	directory = os.path.dirname(nFolPath)
-
 	if not os.path.exists(directory):
 		os.makedirs(nFolPath)
 	else:
 		shutil.rmtree(nFolPath, ignore_errors=True)
 		os.makedirs(nFolPath)
 	return nFolPath
+
+def deletefolpath(path):
+    shutil.rmtree(path, ignore_errors=True)
 
 def hash(file):
     with open(file, "rb") as f:
@@ -46,7 +48,7 @@ def hash(file):
 
 def averagehash(file):
     with Image.open(file) as img:
-        temp_hash = imagehash.average_hash(img, 8)
+        temp_hash = imagehash.average_hash(img, 9)
     return temp_hash
 
 
@@ -67,23 +69,34 @@ nFolPath = os.path.join(imgoutpath, opFolName)
 
 def main():
     c = 0
+    d = 0
+    nFolPath = CreateFolderOut(imgoutpath)
+    deletefolpath(nFolPath)
+    hashdict = {}
     arraypath = getfilearray(firstpath)
+    print('Calculating Images Hash')
+    for i in arraypath:
+        imagepath = os.path.join(firstpath,i)
+        hashdict[i] = hash(imagepath)
+    print('Image Hashing Done!!!')
+    print('Comparing All the hashes')
     for i in arraypath:
         finalpath = os.path.join(firstpath,i)
         print ('Current Looking Image:', i)
         if finalpath in foundimg:
             print ("Found Previous Image:", i)
             continue
-
-        # image_org = Image.open(finalpath)
-        # pix_mean1 = ImageStat.Stat(image_org).mean
-        pix_mean1 = hash(finalpath)
+    #
+    #     # image_org = Image.open(finalpath)
+    #     # pix_mean1 = ImageStat.Stat(image_org).mean
+        pix_mean1 = hashdict[i]
         for j in arraypath:
             j = os.path.join(firstpath, j)
+            j1 = os.path.relpath(j, firstpath)
             if j != finalpath:
-                # image_org2 = Image.open(j)
-                # pix_mean2 = ImageStat.Stat(image_org2).mean
-                pix_mean2 = hash(j)
+    #            # image_org2 = Image.open(j)
+    #             # pix_mean2 = ImageStat.Stat(image_org2).mean
+                pix_mean2 = hashdict[j1]
                 if pix_mean1 == pix_mean2:
                     foundimg.append(j)
                     print ('Found Duplicated Image:',len(foundimg))

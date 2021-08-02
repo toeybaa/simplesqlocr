@@ -7,20 +7,12 @@ from tkinter import Tk, filedialog
 import shutil
 
 
-user = []
 imgfolder = []
 finaldir = []
-root = Tk()
-root.withdraw()
-root.attributes('-topmost', True)
-print ('Image Directory:',os.getcwd())
-# imgoutpath = r"C:\\Users\\patchnui\\Downloads\\Python_Test\\"
-imgoutpath = filedialog.askdirectory(title='Choose Image Destination Folder')
-opFolName = 'Image_Duplicate'
-nFolPath = os.path.join(imgoutpath, opFolName)
-print ('Result Directory:',nFolPath)
+
 
 def readcsvfile():
+    user = []
     root = Tk()
     root.withdraw()
     root.attributes('-topmost', True)
@@ -30,32 +22,35 @@ def readcsvfile():
         reader = csv.reader(f, delimiter=',')
         for row in reader:
             user.append(row[1])
+    return (user)
 
 def remove_duplicates(l):
     return list(set(l))
 
 def listdirs(rootdir):
-    # for root, dirs, files in os.walk(rootdir):
-    #     if not dirs:
-    #         imgfolder.append(root)
-    return (rootdir)
+    dirlist = []
+    for root, dirs, files in os.walk(rootdir):
+        if not dirs:
+            dirlist.append(root)
+    return (dirlist)
+
 
 def getabspath(path):
     img = []
     dir = []
-    readcsvfile()
+    user = readcsvfile()
     imgfolder = listdirs(path)
-    global user
     user = set(user)
-    for file in os.listdir(imgfolder):
-        if file.endswith('.jpeg') or file.endswith('.jpg') or file.endswith('.png'):
-            img.append(os.path.join(imgfolder,file))
-    for i in user:
-        for j in img:
-            if i in j:
-                # print (i, j)
-                dir.append(j)
-
+    for a in imgfolder:
+        for file in os.listdir(a):
+            if file.endswith('.jpeg') or file.endswith('.jpg') or file.endswith('.png'):
+                print (a, file)
+                img.append(os.path.join(a,file))
+        for i in user:
+            for j in img:
+                if i in j:
+                    # print (i, j)
+                    dir.append(j)
     return (dir)
     # for i in imgfolder:
     #     i = str(i)+'\\'
@@ -68,11 +63,15 @@ def getabspath(path):
     #     dir = list(dict.fromkeys(dir))
     #
     # return (dir)
-def pathiteration():
 
 def main():
-    dir = getabspath(os.getcwd())
-    dest = imgoutpath
+    root = Tk()
+    root.withdraw()
+    root.attributes('-topmost', True)
+    folder = filedialog.askdirectory(title='Choose Source Folder')
+    folderout = filedialog.askdirectory(title='Choose Image Destination Folder')
+    dir = getabspath(folder)
+    dest = folderout
     for i in dir:
         print ('Copying:', i, 'to', dest)
         shutil.copy(i, dest)
