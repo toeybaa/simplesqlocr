@@ -94,11 +94,13 @@ def getabspath(path, path2):
     minutes, seconds = divmod(rem, 60)
     print('Image Hashing Done!!!')
     print ('Total Image hashed:', len(hashdict))
-    print ("Hashing Took: "+"{:0>2}:{:0>2}:{:05.2f}".format(int(hours), int(minutes), seconds), '>>>','Per image:',str("{:.2f}".format(((end-start)/len(hashdict))*1000)), 'ms')
+    print ("Hashing Took: "+"{:0>2}:{:0>2}:{:05.2f}".format(int(hours), int(minutes), seconds),
+           '>>>','Per image:',str("{:.2f}".format(((end-start)/len(hashdict))*1000)), 'ms')
     dupimglist = dupdict(hashdict)
     print('Comparing All the hashes...')
     print ('Total Number of similar hashes:', len(dupimglist))
     print ('Start copying all images with similar hash...')
+    startcopy = time.time()
     for i in dupimglist:
         temp = str(hashdict.get(list(i)[0]))
         nFolPath = os.path.join(path2, opFolName)
@@ -108,8 +110,13 @@ def getabspath(path, path2):
                 os.makedirs(hashfolder)
             copy(k, hashfolder)
             d += 1
+    endcopy = time.time()
+    hourscopy, remcopy = divmod(end - start, 3600)
+    minutescopy, secondscopy = divmod(rem, 60)
     print('Total Number of similar images:', d)
     print('Successfully copied', d, 'images to', nFolPath)
+    print("Hashing Took: " + "{:0>2}:{:0>2}:{:05.2f}".format(int(hourscopy), int(minutescopy), secondscopy),
+          '>>>', 'Per image:', str("{:.2f}".format(((endcopy - startcopy) / d) * 1000)), 'ms')
 
 
 def dupdict(dictA):
@@ -161,7 +168,6 @@ def getallpath(path):
                     for k in day:
                         k = str(k)
                         fpath.append((os.path.join(path, os.path.join(i, os.path.join(j, k)))))
-
     return (fpath)
 
 def main():
