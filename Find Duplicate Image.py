@@ -70,6 +70,7 @@ nFolPath = os.path.join(imgoutpath, opFolName)
 def main():
     c = 0
     d = 0
+    e = 0
     nFolPath = CreateFolderOut(imgoutpath)
     deletefolpath(nFolPath)
     hashdict = {}
@@ -82,7 +83,8 @@ def main():
     print('Comparing All the hashes')
     for i in arraypath:
         finalpath = os.path.join(firstpath,i)
-        print ('Current Looking Image:', i)
+        d += 1
+        print ('Current Looking Image:', i, d ,'out of', len(arraypath))
         if finalpath in foundimg:
             print ("Found Previous Image:", i)
             continue
@@ -104,8 +106,11 @@ def main():
                     if c == 0:
                         nFolPath = CreateFolderOut(imgoutpath)
                         c = c + 1
-                    shutil.copy(finalpath, nFolPath)
-                    shutil.copy(j, nFolPath)
+                    hashfolder = os.path.join(nFolPath, pix_mean1)
+                    if not os.path.exists(hashfolder):
+                        os.makedirs(hashfolder)
+                    shutil.copy(finalpath, hashfolder)
+                    shutil.copy(j, hashfolder)
     print ('Total Images Lookup:', len(arraypath))
     print ('Found Duplicated Image:', len(foundimg))
     print ('Program Completed')

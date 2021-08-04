@@ -37,25 +37,36 @@ def listdirs(rootdir):
     #         dirlist.append(root)
     return (rootdir)
 
-def getabspath(path):
+def getabspath(path, path2):
     img = []
-    dir = []
+    dir = 0
     user = readcsvfile()
     imgfolder = getallpath(path)
-    print ()
     user = set(user)
 
-    for i in imgfolder:
-        for file in os.listdir(i):
+    for a in imgfolder:
+        print ('Looking Folder', a)
+        if a == r'W:\Upload\2019\1\1':
+            break
+        for file in os.listdir(a):
             if file.endswith('.jpeg') or file.endswith('.jpg') or file.endswith('.png'):
-                img.append(os.path.join(i,file))
-        for i in user:
-            for j in img:
-                if i in j:
-                    # print (i, j)
-                    dir.append(j)
+                for i in user:
+                    if i in file:
+                        path1 = os.path.join(a,file)
+                        copy(path1, path2)
+                        dir += 1
+    #     for i in user:
+    #         for j in img:
+    #             if i in j:
+    #                 # print (i, j)
+    #                 dir.append(j)
+    #                 # print ('Getting:', j)
+    # print (len(dir))
     return (dir)
 
+def copy(path1 ,path2):
+    shutil.copy(path1, path2)
+    print ('Copying:', path1, 'to', path2)
 
 def getallpath(path):
     year = [2018, 2019]
@@ -105,12 +116,12 @@ def main():
     folder = filedialog.askdirectory(title='Choose Source Folder')
     folderout = filedialog.askdirectory(title='Choose Image Destination Folder')
     folder = 'W:\\Upload'
-    dir = getabspath(folder)
+    dir = getabspath(folder, folderout)
     dest = folderout
-    for i in dir:
-        print ('Copying:', i, 'to', dest)
-        shutil.copy(i, dest)
-    print ('Successfully copied', len(dir), 'images to', dest)
+    # for i in dir:
+    #     print ('Copying:', i, 'to', dest)
+    #     shutil.copy(i, dest)
+    print ('Successfully copied', dir, 'images to', dest)
     input("Press Any Key to close the program")
     return dest
 
