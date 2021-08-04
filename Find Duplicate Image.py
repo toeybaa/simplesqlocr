@@ -5,7 +5,7 @@ from PIL import Image, ImageStat
 from fnmatch import fnmatch
 import time
 import hashlib
-# import imagehash
+import imagehash
 from tkinter import Tk, filedialog
 import numpy as np
 #query out the database for known user_id
@@ -65,7 +65,7 @@ firstpath = filedialog.askdirectory()
 foundimg = []
 imgoutpath = firstpath
 opFolName = 'Image_Duplicate'
-nFolPath = os.path.join(imgoutpath, opFolName)
+# nFolPath = os.path.join(imgoutpath, opFolName)
 
 def main():
     c = 0
@@ -77,6 +77,7 @@ def main():
     arraypath = getfilearray(firstpath)
     print('Calculating Images Hash')
     for i in arraypath:
+        print ('i',i)
         imagepath = os.path.join(firstpath,i)
         hashdict[i] = hash(imagepath)
     print('Image Hashing Done!!!')

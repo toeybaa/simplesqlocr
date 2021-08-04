@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="50316d6f-8705-4273-9f42-f089fdd47218" name="Default" comment="beta3">
+    <list default="true" id="50316d6f-8705-4273-9f42-f089fdd47218" name="Default" comment="beta4">
+      <change afterPath="$PROJECT_DIR$/FindSimilarImage.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Find Duplicate Image.py" beforeDir="false" afterPath="$PROJECT_DIR$/Find Duplicate Image.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/copy.py" beforeDir="false" afterPath="$PROJECT_DIR$/copy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image_Test_Python3/Image_Duplicate/04-2017-honda-civic-hatchback-hfp-concept-sema-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image_Test_Python3/Image_Duplicate/04-2017-honda-sema-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image_Test_Python3/Image_Duplicate/Honda-Civic-Type-R-Limited-Edition-at-Suzuka-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image_Test_Python3/Image_Duplicate/Honda-Civic-Type-R_yellow.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image_Test_Python3/Image_Duplicate/civic_bule111.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image_Test_Python3/Image_Duplicate/civic_bule5555555555.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image_Test_Python3/Image_Duplicate/civic_fkkkkkkk.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image_Test_Python3/Image_Duplicate/fvrcjf.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image_Test_Python3/Image_Duplicate/ฟ้า แม็กดำ FK.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image_Test_Python3/Image_Duplicate/ฟ้า แม็กดำ FK99999999999999.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image_Test_Python3/Image_Duplicate/ส้มๆ-black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image_Test_Python3/Image_Duplicate/ส้มๆ.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/copyall.py" beforeDir="false" afterPath="$PROJECT_DIR$/copyall.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +160,7 @@
       </console-settings>
     </option>
   </component>
-  <component name="RunManager" selected="Python.copy">
+  <component name="RunManager" selected="Python.copyall">
     <configuration type="PythonConfigurationType" factoryName="Python">
       <module name="Python_Test" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -182,27 +195,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Copy Suspect Image" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Python_Test" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="C:\Python37\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\patchnui\Downloads\Python_Test\copy.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -295,6 +287,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="copyall" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Python_Test" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/copyall.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
       <module name="Python_Test" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -310,19 +323,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.Copy Suspect Image" />
       <item itemvalue="Python.copy" />
       <item itemvalue="Python.EU_DIST" />
       <item itemvalue="Python.copy (1)" />
       <item itemvalue="Python.Find Duplicate Image" />
+      <item itemvalue="Python.copyall" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.copy" />
+        <item itemvalue="Python.copyall" />
         <item itemvalue="Python.Find Duplicate Image" />
+        <item itemvalue="Python.copy" />
         <item itemvalue="Python.copy (1)" />
         <item itemvalue="Python.EU_DIST" />
-        <item itemvalue="Python.Copy Suspect Image" />
       </list>
     </recent_temporary>
   </component>
@@ -391,7 +404,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627897976631</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="beta4">
+      <created>1628080240332</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1628080240332</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView">
@@ -469,7 +489,8 @@
     <MESSAGE value="beta 1" />
     <MESSAGE value="copy file re-implemented" />
     <MESSAGE value="beta3" />
-    <option name="LAST_COMMIT_MESSAGE" value="beta3" />
+    <MESSAGE value="beta4" />
+    <option name="LAST_COMMIT_MESSAGE" value="beta4" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Upload/12/1/copy.py">
