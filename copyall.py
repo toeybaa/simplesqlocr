@@ -8,10 +8,21 @@ import shutil
 import imagehash
 from PIL import Image
 from itertools import chain
+import time
+import hashlib
 
 imgfolder = []
 finaldir = []
 hashdict = {}
+
+def hash(file):
+    with open(file, "rb") as f:
+        file_hash = hashlib.md5()
+        chuck = f.read(8192)
+        while chuck:
+            file_hash.update(chuck)
+            chuck = f.read(8192)
+    return (file_hash.hexdigest())
 
 def averagehash(file):
     with Image.open(file) as img:
@@ -60,6 +71,7 @@ def getabspath(path, path2):
     imgfolder = [r'D:\Upload\12\1', r'D:\Upload\12\2']
     user = set(user)
     print('Calculating Images Hash...')
+    start = time.time()
     for a in imgfolder:
         c = 0
         print ('Looking Images Folder', a, end=' >>> ')
@@ -70,38 +82,35 @@ def getabspath(path, path2):
                 for i in user:
                     if i in file:
                         path1 = os.path.join(a,file)
-                        hashdict[path1] = (averagehash(path1))
+                        hashdict[path1] = (hash(path1))
                         # print (path1, averagehash(path1))
                         c += 1
         if c != 0:
             print (c, 'suspect images hashed')
         if c == 0:
             print ('No suspect images found')
+    end = time.time()
+    hours, rem = divmod(end - start, 3600)
+    minutes, seconds = divmod(rem, 60)
+    print('Image Hashing Done!!!')
     print ('Total Image hashed:', len(hashdict))
+    print ("Hashing Took: "+"{:0>2}:{:0>2}:{:05.2f}".format(int(hours), int(minutes), seconds), '>>>','Per image:',str("{:.2f}".format(((end-start)/len(hashdict))*1000)), 'ms')
     dupimglist = dupdict(hashdict)
+    print('Comparing All the hashes...')
     print ('Total Number of similar hashes:', len(dupimglist))
+    print ('Start copying all images with similar hash...')
     for i in dupimglist:
         temp = str(hashdict.get(list(i)[0]))
         nFolPath = os.path.join(path2, opFolName)
         hashfolder = os.path.join(nFolPath, temp)
         for k in i:
-            # print (temp, k)
             if not os.path.exists(hashfolder):
                 os.makedirs(hashfolder)
             copy(k, hashfolder)
             d += 1
     print('Total Number of similar images:', d)
+    print('Successfully copied', d, 'images to', nFolPath)
 
-    print('Image Hashing Done!!!')
-    print('Comparing All the hashes')
-    # #     for i in user:
-    # #         for j in img:
-    # #             if i in j:
-    # #                 # print (i, j)
-    # #                 dir.append(j)
-    # #                 # print ('Getting:', j)
-    # # print (len(dir))
-    # return (dir)
 
 def dupdict(dictA):
     dictB = {}
@@ -167,8 +176,13 @@ def main():
     # for i in dir:
     #     print ('Copying:', i, 'to', dest)
     #     shutil.copy(i, dest)
-    print ('Successfully copied', dir, 'images to', dest)
+    print ('Program Completed!!!')
     return dest
 
 if __name__ == "__main__":
+    start = time.time()
     main()
+    end = time.time()
+    hours, rem = divmod(end - start, 3600)
+    minutes, seconds = divmod(rem, 60)
+    print("Elapsed Time: " + "{:0>2}:{:0>2}:{:05.2f}".format(int(hours), int(minutes), seconds))
