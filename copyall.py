@@ -67,8 +67,9 @@ def getabspath(path, path2):
     d = 0
     opFolName = 'Image_Duplicate'
     user = readcsvfile()
-    # imgfolder = getallpath(path)
-    imgfolder = [r'D:\Upload\12\1', r'D:\Upload\12\2']
+    imgfolder = getallpath(path, (int)(input("choose year: ")))
+    print ('i', imgfolder)
+    # imgfolder = [r'W:\upload\2018\12\1', r'W:\upload\2018\12\2', r'W:\upload\2018\12\3', r'W:\upload\2018\12\4']
     user = set(user)
     print('Calculating Images Hash...')
     start = time.time()
@@ -78,11 +79,12 @@ def getabspath(path, path2):
         if a == r'W:\Upload\2019\1\1':
             break
         for file in os.listdir(a):
+            # print ('Current file hasing:',file)
             if file.endswith('.jpeg') or file.endswith('.jpg') or file.endswith('.png'):
                 for i in user:
                     if i in file:
                         path1 = os.path.join(a,file)
-                        hashdict[path1] = (hash(path1))
+                        hashdict[path1] = (averagehash(path1))
                         # print (path1, averagehash(path1))
                         c += 1
         if c != 0:
@@ -115,7 +117,7 @@ def getabspath(path, path2):
     minutescopy, secondscopy = divmod(rem, 60)
     print('Total Number of similar images:', d)
     print('Successfully copied', d, 'images to', nFolPath)
-    print("Hashing Took: " + "{:0>2}:{:0>2}:{:05.2f}".format(int(hourscopy), int(minutescopy), secondscopy),
+    print("Copying Took: " + "{:0>2}:{:0>2}:{:05.2f}".format(int(hourscopy), int(minutescopy), secondscopy),
           '>>>', 'Per image:', str("{:.2f}".format(((endcopy - startcopy) / d) * 1000)), 'ms')
 
 
@@ -130,12 +132,12 @@ def copy(path1 ,path2):
     shutil.copy(path1, path2)
     print ('Copying:', path1, 'to', path2)
 
-def getallpath(path):
+def getallpath(path, years):
     year = [2018, 2019]
     fpath = []
     for i in year:
         i = str(i)
-        if i == '2018':
+        if (str)(years)==(str)(i) and years == 2018:
             month = list(range(6, 13))
             for j in month:
                 j = str(j)
@@ -149,7 +151,7 @@ def getallpath(path):
                     for k in day:
                         k = str(k)
                         fpath.append((os.path.join(path, os.path.join(i, os.path.join(j, k)))))
-        if i == '2019':
+        if (str)(years)==(str)(i) and years == 2019:
             month = list(range(1, 13))
             for j in month:
                 j = str(j)
@@ -174,9 +176,10 @@ def main():
     root = Tk()
     root.withdraw()
     root.attributes('-topmost', True)
-    folder = filedialog.askdirectory(title='Choose Source Folder')
-    folderout = filedialog.askdirectory(title='Choose Image Destination Folder')
-    folder = 'W:\\Upload'
+    # folder = filedialog.askdirectory(title='Choose Source Folder')
+    # folderout = filedialog.askdirectory(title='Choose Image Destination Folder')
+    folderout = r'D:\ImgOut'
+    folder = 'D:\\Upload'
     dir = getabspath(folder, folderout)
     dest = folderout
     # for i in dir:
