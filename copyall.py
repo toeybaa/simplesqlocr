@@ -323,7 +323,7 @@ def getallpath(path, years):
                     day = list(range(1, 31))
                     for k in day:
                         k = str(k)
-                        fpath.append((os.path.join(path, os.path.join(i, os.path.join(j, k)))))
+                        fpath.append((os.path.join(path, os.path.join(i, os.path.join(j, k)))))1
                 if j == '1' or j == '3' or j == '5' or j == '7' or j == '8' or j == '10' or j == '12':
                     day = list(range(1, 32))
                     for k in day:
