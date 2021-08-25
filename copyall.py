@@ -23,6 +23,7 @@ finaldir = []
 hashdict = {}
 problemfiles = []
 d = 0
+customer_count = 0
 
 
 def hash(file):
@@ -67,12 +68,13 @@ def getfilearray(path):
     return arraypath
 
 
-def readcsvfile():
+def readcsvfile(path):
     user = []
     root = Tk()
     root.withdraw()
     root.attributes('-topmost', True)
-    file = filedialog.askopenfilename(title='CSV file for selecting user')
+    title = 'CSV file for selecting user in ' + sys.argv[1]
+    file = filedialog.askopenfilename(title=title)
     print('Chosen CSV file:', file)
     with open(file) as f:
         reader = csv.reader(f, delimiter=',')
@@ -89,10 +91,6 @@ def fast_scandir(dirname):
 
 
 def listdirs(rootdir):
-    # dirlist = []
-    # for root, dirs, files in os.walk(rootdir):
-    #     if not dirs:
-    #         dirlist.append(root)
     return (rootdir)
 
 
@@ -103,18 +101,15 @@ def checkyear(year):
 
 
 def getpathhashcopy(path, path2):
-    img = []
     dir = 0
-
-    e = 0
     opFolName = 'Image_Duplicate'
-    opFolName2 = 'Image_Similar'
-    user = readcsvfile()
+    opFolName2 = 'Customer_Duplicate'
+    user = readcsvfile(path2)
     y = int(sys.argv[1])
     flag = checkyear(y)
     while not flag:
         print('Year', y, 'was not found in image folder')
-        y = int(input("choose year: "))
+        y = int(input("Please choose year between 2018 and current year: "))
         if checkyear(y):
             break
     # imgfolder = getallpath(path, y)
@@ -126,18 +121,13 @@ def getpathhashcopy(path, path2):
     for a in imgfolder:
         c = 0
         print('Looking Images Folder', a, end=' >>> ')
-        # if a == r'W:\Upload\2019\1\1':
-        #     break
         try:
             for file in os.listdir(a):
-                # print ('Current file hasing:',file, end="\r", flush=True)
                 if file.endswith('.jpeg') or file.endswith('.jpg') or file.endswith('.png'):
                     for i in user:
                         if i in file:
                             path1 = os.path.join(a, file)
-                            # hashdict[path1] = (averagehash(path1))
                             hashdict[path1] = averagehash(path1)
-                            # print (path1, averagehash(path1))
                             c += 1
         except OSError as e:
             print(e, end=' >>> ')
@@ -160,29 +150,37 @@ def getpathhashcopy(path, path2):
     print('Total Number of similar hashes:', len(dupimglist))
     print('Start copying all images with similar hash...')
     nFolPath = os.path.join(path2, opFolName)
+    nFolPath2 = os.path.join(path2, opFolName2)
     for i in dupimglist:
         temp = str(hashdict.get(list(i)[0]))
-        if temp == '0000000000000000000000000':
+        if '0000000000000000000000000' in temp or '00c0500c0500c0301c0702c05' in temp\
+                or '00000000000000000000000' in temp or '0000000000000000000000002' in temp or '0000000000000000000000400' in temp\
+                or 'ffffffffffffffffffffffdff' in temp or 'ffffffffffffffffffffffff' in temp or '000000000000000000000' in temp:
             continue
         customer = []
         file = []
         dir += 1
-        # temp = str(dir)
         hashfolder = os.path.join(nFolPath, temp)
+        hashfolder2 = os.path.join(nFolPath2, temp)
         for k in i:
             customer.append(getcustomer(k))
             file.append(k)
         if len(odd_occurring_num(customer)) >= 2:
             for j in file:
                 copy(j, hashfolder)
-    print('Total Number of exact hash images:', d)
+        if len(even_occurring_num(customer)) >= 2:
+            for j in file:
+                copycustomer(j, hashfolder2)
+    print('Total Number of same images with different customer number:', d)
+    print('Total Number of same images with same customer number:', customer_count)
     print('Successfully copied', d, 'images to', nFolPath)
+    print('Successfully copied', customer_count, 'images to', nFolPath2)
     endcopy = time.time()
     hourscopy, remcopy = divmod(endcopy - startcopy, 3600)
     minutescopy, secondscopy = divmod(remcopy, 60)
     if d != 0 and flag != 0:
         print("Copying Took: " + "{:0>2}:{:0>2}:{:05.2f}".format(int(hourscopy), int(minutescopy), secondscopy),
-          '>>>', 'Per image:', str("{:.2f}".format(((endcopy - startcopy) / d) * 1000)), 'ms')
+          '>>>', 'Per image:', str("{:.2f}".format(((endcopy - startcopy) / (d+customer_count)) * 1000)), 'ms')
     if flag == 0:
         print("No Similar Image Duplicate Found!")
     if d == 0:
@@ -207,8 +205,14 @@ def copy(path1, path2):
     shutil.copy(path1, path2)
     global d
     d += 1
-    #print('Copying:', path1, 'to', path2)
 
+
+def copycustomer(path1, path2):
+    if not os.path.exists(path2):
+        os.makedirs(path2)
+    shutil.copy(path1, path2)
+    global customer_count
+    customer_count += 1
 
 def calculate(dict, path):
     flag = False
@@ -247,7 +251,7 @@ def find_similar(dict, path):
 
 def getcustomer(path):
     str2 = os.path.sep
-    res = path.split(str2, 12)[-1]
+    res = path.split(str2, 16)[-1]
     str3 = '_'
     res = res.split(str3, 1)[-1]
     res = res.rsplit('_')[0]
@@ -257,6 +261,9 @@ def getcustomer(path):
 def odd_occurring_num(arr):
     return [i for i in arr if arr.count(i) < 2]
 
+
+def even_occurring_num(arr):
+    return [i for i in arr if arr.count(i) >= 2]
 
 def getallpath(path, years):
     year = [2018, 2019, 2020, 2021, 2022]
@@ -323,7 +330,7 @@ def getallpath(path, years):
                     day = list(range(1, 31))
                     for k in day:
                         k = str(k)
-                        fpath.append((os.path.join(path, os.path.join(i, os.path.join(j, k)))))1
+                        fpath.append((os.path.join(path, os.path.join(i, os.path.join(j, k)))))
                 if j == '1' or j == '3' or j == '5' or j == '7' or j == '8' or j == '10' or j == '12':
                     day = list(range(1, 32))
                     for k in day:
@@ -334,7 +341,6 @@ def getallpath(path, years):
                     for k in day:
                         k = str(k)
                         fpath.append((os.path.join(path, os.path.join(i, os.path.join(j, k)))))
-
     return (fpath)
 
 
@@ -344,15 +350,17 @@ def main():
     root.attributes('-topmost', True)
     # folder = filedialog.askdirectory(title='Choose Source Folder')
     # folderout = filedialog.askdirectory(title='Choose Image Destination Folder')
-    folderout = r'D:\ImgOut3'
-    folder = 'D:\\Upload'
+    folder = r'W:\upload'
+    folderout = r'D:\Python_Image_Out'
+    folderout = os.path.join(folderout, str(sys.argv[1]))
     dir = getpathhashcopy(folder, folderout)
     dest = folderout
     if len(problemfiles) > 0:
         print ('Corruped Image Files:', problemfiles)
-    # for i in dir:
-    #     print ('Copying:', i, 'to', dest)
-    #     shutil.copy(i, dest)
+        f = open(os.path.join(dest, 'error_log.txt'), 'w')
+        for i in problemfiles:
+            f.write(i+'\n')
+        f.close()
     print('Program Completed!!!', dir)
     return dest
 
