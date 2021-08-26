@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="50316d6f-8705-4273-9f42-f089fdd47218" name="Default" comment="beta 8">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="50316d6f-8705-4273-9f42-f089fdd47218" name="Default" comment="done1">
+      <change afterPath="$PROJECT_DIR$/Find_Duplicate_Image.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/copyall.py" beforeDir="false" afterPath="$PROJECT_DIR$/copyall.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Find Duplicate Image.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +147,7 @@
       </console-settings>
     </option>
   </component>
-  <component name="RunManager" selected="Python.copyall">
+  <component name="RunManager" selected="Python.Find_Duplicate_Image">
     <configuration type="PythonConfigurationType" factoryName="Python">
       <module name="Python_Test" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -211,20 +211,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="copy (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Find_Duplicate_Image" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Python_Test" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Python37\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Upload/12/1" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Upload/12/1/copy.py" />
-      <option name="PARAMETERS" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Find_Duplicate_Image.py" />
+      <option name="PARAMETERS" value="2018" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -311,18 +311,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.copy" />
-      <item itemvalue="Python.copy (1)" />
       <item itemvalue="Python.Find Duplicate Image" />
       <item itemvalue="Python.copyall" />
       <item itemvalue="Python.test" />
+      <item itemvalue="Python.Find_Duplicate_Image" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Find_Duplicate_Image" />
         <item itemvalue="Python.copyall" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.Find Duplicate Image" />
         <item itemvalue="Python.copy" />
-        <item itemvalue="Python.copy (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -433,7 +433,14 @@
       <option name="project" value="LOCAL" />
       <updated>1629709600850</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="done1">
+      <created>1629883201778</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1629883201778</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TodoView">
@@ -516,7 +523,8 @@
     <MESSAGE value="beta 6 years input" />
     <MESSAGE value="beta 7 check year input" />
     <MESSAGE value="beta 8" />
-    <option name="LAST_COMMIT_MESSAGE" value="beta 8" />
+    <MESSAGE value="done1" />
+    <option name="LAST_COMMIT_MESSAGE" value="done1" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Upload/12/1/copy.py">
