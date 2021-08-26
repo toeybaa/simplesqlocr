@@ -105,6 +105,10 @@ def getmechanic(path):
     return res
 
 
+def keepdup(ids):
+    return set(i for i in ids if ids.count(i) > 1)
+
+
 def odd_occurring_num(arr):
     return [i for i in arr if arr.count(i) < 2]
 
@@ -241,9 +245,9 @@ def getpathhashcopy(path, path2):
 
     dupimglist = dupdict(hashdict)
     end = time.time()
-    startcopy = time.time()
     hours, rem = divmod(end - start, 3600)
     minutes, seconds = divmod(rem, 60)
+
     print('Image Hashing Done!!!')
     print('Total Image hashed:', len(hashdict))
     if len(hashdict) != 0:
@@ -252,6 +256,7 @@ def getpathhashcopy(path, path2):
     print('Comparing All the hashes...')
     print('Total Number of similar hashes:', len(dupimglist))
     print('Start copying all images with similar hash...')
+    startcopy = time.time()
     nFolPath = os.path.join(path2, opFolName)
     nFolPath2 = os.path.join(path2, opFolName2)
     checkpath(nFolPath)
@@ -292,12 +297,14 @@ def getpathhashcopy(path, path2):
                 write = [cus, mec, j,temp]
                 writer.writerow(write)
         if len(even_occurring_num(customer)) >= 2:
+            ids = keepdup(customer)
             for j in file:
-                copycustomer(j, hashfolder2)
-                cus = getcustomer(j)
-                mec = getmechanic(j)
-                write = [cus, mec, j, temp]
-                writer2.writerow(write)
+                if list(ids)[0] in j:
+                    copycustomer(j, hashfolder2)
+                    cus = getcustomer(j)
+                    mec = getmechanic(j)
+                    write = [cus, mec, j, temp]
+                    writer2.writerow(write)
     print('Total Number of same images with different customer number:', d)
     print('Total Number of same images with same customer number:', customer_count)
     print('Successfully copied', d, 'images to', nFolPath)
