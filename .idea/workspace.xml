@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="50316d6f-8705-4273-9f42-f089fdd47218" name="Default" comment="done2">
+    <list default="true" id="50316d6f-8705-4273-9f42-f089fdd47218" name="Default" comment="done3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Find_Duplicate_Image.py" beforeDir="false" afterPath="$PROJECT_DIR$/Find_Duplicate_Image.py" afterDir="false" />
     </list>
@@ -446,7 +446,14 @@
       <option name="project" value="LOCAL" />
       <updated>1629972243020</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="done3">
+      <created>1629976211796</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1629976211796</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TodoView">
@@ -531,7 +538,19 @@
     <MESSAGE value="beta 8" />
     <MESSAGE value="done1" />
     <MESSAGE value="done2" />
-    <option name="LAST_COMMIT_MESSAGE" value="done2" />
+    <MESSAGE value="done3" />
+    <option name="LAST_COMMIT_MESSAGE" value="done3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Find_Duplicate_Image.py</url>
+          <line>1</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Upload/12/1/copy.py">

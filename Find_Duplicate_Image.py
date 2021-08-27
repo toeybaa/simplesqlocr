@@ -28,6 +28,11 @@ year = ''
 
 
 def averagehash(file):
+    """
+    Calculate Image Hash based on input file
+    Hashsize or image pixel can be set as comment below
+    default hashsize is set by 10
+    """
     try:
         with Image.open(file) as img:
             temp_hash = imagehash.dhash(img, 10) #put image pixel here: current = 10x10 pixel
@@ -40,6 +45,11 @@ def averagehash(file):
 
 
 def readcsvfile():
+    """
+    Read CSV file as technicians selection list
+    put the list of technicians each year when the program run
+    column to be read in csv file can be set as comment below
+    """
     user = []
     root = Tk()
     root.withdraw()
@@ -50,16 +60,22 @@ def readcsvfile():
     with open(file) as f:
         reader = csv.reader(f, delimiter=',')
         for row in reader:
-            user.append(row[1])
+            user.append(row[1]) #set the row number as the column to read the csv file
     return (user)
 
 
 def checkpath(path):
+    """
+    Check if the input path is existed or not
+    """
     if not os.path.exists(path):
         os.makedirs(path)
 
 
 def checkyear(year):
+    """
+    Check if the input year is within range of possibility or not
+    """
     year = int(year)
     now = datetime.datetime.now()
     dateyear = now.year
@@ -67,11 +83,17 @@ def checkyear(year):
 
 
 def removecsv(path):
+    """
+    Remove existing csv file in the directory
+    """
     if os.path.exists(path):
         os.remove(path)
 
 
 def copy(path1, path2):
+    """
+    Copy file from path1 to path2 as same image different technician counter
+    """
     if not os.path.exists(path2):
         os.makedirs(path2)
     shutil.copy(path1, path2)
@@ -80,6 +102,9 @@ def copy(path1, path2):
 
 
 def copycustomer(path1, path2):
+    """
+    Copy file from path1 to path2 as same image and same technician counter
+    """
     if not os.path.exists(path2):
         os.makedirs(path2)
     shutil.copy(path1, path2)
@@ -88,6 +113,9 @@ def copycustomer(path1, path2):
 
 
 def getcustomer(path):
+    """
+    Extract full filename to customer number only
+    """
     str2 = os.path.sep
     res = path.split(str2, 16)[-1]
     str3 = '_'
@@ -97,6 +125,9 @@ def getcustomer(path):
 
 
 def getmechanic(path):
+    """
+    Extract full filename to technician number only
+    """
     str2 = os.path.sep
     res = path.split(str2, 16)[-1]
     str3 = '_'
@@ -106,18 +137,30 @@ def getmechanic(path):
 
 
 def keepdup(ids):
+    """
+    List Manipulation: keep only duplicated element
+    """
     return set(i for i in ids if ids.count(i) > 1)
 
 
 def odd_occurring_num(arr):
+    """
+    List Manipulation: keep only distinct element
+    """
     return [i for i in arr if arr.count(i) < 2]
 
 
 def even_occurring_num(arr):
+    """
+    List Manipulation: keep only elements with have more than 2 occurrences
+    """
     return [i for i in arr if arr.count(i) >= 2]
 
 
 def calendar(path, years):
+    """
+    Calendar List generator: from 2018 to 2022
+    """
     year = [2018, 2019, 2020, 2021, 2022] # add more years in future
     fpath = []
     for i in year:
@@ -215,6 +258,17 @@ def calendar(path, years):
     return (fpath)
 
 
+def dupdict(dictA):
+    """
+    Dictionary manipulation: reversed dict and select only element with multiple key
+    """
+    dictB = {}
+    for key, value in dictA.items():
+        dictB.setdefault(value, set()).add(key)
+    res = filter(lambda x: len(x) > 1, dictB.values())
+    return (list(res))
+
+
 def getpathhashcopy(path, path2):
     dir = 0
     opFolName = 'Image_Duplicate'
@@ -234,7 +288,7 @@ def getpathhashcopy(path, path2):
                     for i in user: #8765234234 in cus_8765234234
                         if i in file:
                             path1 = os.path.join(a, file)
-                            hashdict[path1] = averagehash(path1) #dict[key#3] = value 
+                            hashdict[path1] = averagehash(path1) #dict[key#3] = value
                             c += 1
         except OSError as e:
             print(e, end=' >>> ')
@@ -267,7 +321,7 @@ def getpathhashcopy(path, path2):
     removecsv(csvfile2)
     mode1 = 'a' if os.path.exists(csvfile1) else 'w'
     mode2 = 'a' if os.path.exists(csvfile2) else 'w'
-    csvheader = ['customer_number', 'mechanic_number', 'filename', 'hashvalue']
+    csvheader = ['customer_number', 'technician_number', 'filename', 'hashvalue']
     f = open(csvfile1, mode1, newline='')
     writer = csv.writer(f)
     writer.writerow(csvheader)
@@ -275,7 +329,7 @@ def getpathhashcopy(path, path2):
     writer2 = csv.writer(f2)
     writer2.writerow(csvheader)
     for i in dupimglist:
-        temp = str(hashdict.get(list(i)[0])) 
+        temp = str(hashdict.get(list(i)[0]))
         if '000000000000000000000000' in temp or '00c0500c0500c0301c0702c05' in temp\
                 or '00000000000000000000000' in temp or '0000000000000000000000002' in temp or '0000000000000000000000400' in temp\
                 or 'ffffffffffffffffffffffdff' in temp or 'ffffffffffffffffffffffff' in temp or '000000000000000000000' in temp:
@@ -323,22 +377,14 @@ def getpathhashcopy(path, path2):
         return False
 
 
-def dupdict(dictA):
-    dictB = {}
-    for key, value in dictA.items():
-        dictB.setdefault(value, set()).add(key)
-    res = filter(lambda x: len(x) > 1, dictB.values())
-    return (list(res))
-
-
 def main():
     root = Tk()
     root.withdraw()
     root.attributes('-topmost', True)
     # folder = filedialog.askdirectory(title='Choose Source Folder')
     # folderout = filedialog.askdirectory(title='Choose Image Destination Folder')
-    folder = r'D:\upload'
-    folderout = r'D:\Python_Image_Out'
+    folder = r'W:\upload'
+    folderout = r'E:\Python_Image_Out'
     global year
     if len(sys.argv) <= 1:
         year = str(input('Please input year to compare the image: '))
@@ -361,6 +407,7 @@ def main():
             f.write(i+'\n')
         f.close()
     print('Program Completed!!!', dir)
+    input('Press Any Key To Close This Window...')
     return dest
 
 
